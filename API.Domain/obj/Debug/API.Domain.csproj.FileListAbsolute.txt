@@ -1,0 +1,7 @@
+D:\ProjetoAnder\API\API.Domain\bin\Debug\API.Domain.dll
+D:\ProjetoAnder\API\API.Domain\bin\Debug\API.Domain.pdb
+D:\ProjetoAnder\API\API.Domain\bin\Debug\Newtonsoft.Json.dll
+D:\ProjetoAnder\API\API.Domain\bin\Debug\Newtonsoft.Json.xml
+D:\ProjetoAnder\API\API.Domain\obj\Debug\API.Domain.dll
+D:\ProjetoAnder\API\API.Domain\obj\Debug\API.Domain.pdb
+D:\ProjetoAnder\API\API.Domain\obj\Debug\API.Domain.csprojResolveAssemblyReference.cache

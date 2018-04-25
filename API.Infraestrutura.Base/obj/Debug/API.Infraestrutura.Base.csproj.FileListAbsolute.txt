@@ -1,0 +1,11 @@
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\API.Infraestrutura.Base.dll
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\API.Infraestrutura.Base.pdb
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\API.Domain.dll
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\System.Web.Http.Common.dll
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\Newtonsoft.Json.dll
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\API.Domain.pdb
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\System.Web.Http.Common.xml
+D:\ProjetoAnder\API\API.Infraestrutura.Base\bin\Debug\Newtonsoft.Json.xml
+D:\ProjetoAnder\API\API.Infraestrutura.Base\obj\Debug\API.Infraestrutura.Base.csprojResolveAssemblyReference.cache
+D:\ProjetoAnder\API\API.Infraestrutura.Base\obj\Debug\API.Infraestrutura.Base.dll
+D:\ProjetoAnder\API\API.Infraestrutura.Base\obj\Debug\API.Infraestrutura.Base.pdb
