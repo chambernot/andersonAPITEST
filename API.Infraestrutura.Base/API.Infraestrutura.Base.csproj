@@ -52,8 +52,6 @@
     <Compile Include="CalcularDistancia.cs" />
     <Compile Include="DataLayer\BaseDatalayer.cs" />
     <Compile Include="DataLayer\CalculoHistorico.cs" />
-    <Compile Include="Execucao\IResultadoExecucao.cs" />
-    <Compile Include="Execucao\Resultado.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

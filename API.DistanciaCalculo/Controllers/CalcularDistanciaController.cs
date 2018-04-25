@@ -1,9 +1,9 @@
 ﻿using API.Domain.Entidades;
 using API.Dominio;
 using API.Infraestrutura.Base;
-using API.Infraestrutura.Base.Execucao;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
@@ -14,10 +14,10 @@ namespace API.DistanciaCalculo.Controllers
 {
 
     
-    public class CalcularDistanciaController: BaseApiController
+    public class CalcularDistanciaController : ApiController
     {
         [Route("api/Distancia/CalculoProximidadePessoasGet")]
-        [Authorize]
+       // [Authorize]
         
         public async Task<HttpResponseMessage> CalculoProximidadePessoas(List<Entrada> ListaLocalizacao)
         {
@@ -35,13 +35,7 @@ namespace API.DistanciaCalculo.Controllers
             }
                  CalcularDistancia _calcDistancia = new CalcularDistancia(strConexao);
              List<List<EnderecosCalculados>> RetornoLista = await _calcDistancia.RetornaCalculoDistancita(ListaLocalizacao);
-            var resultado = new Resultado<List<List<EnderecosCalculados>>>()
-                            .Executar(() => ResultadoDaOperacao <List<List<EnderecosCalculados>>>.ComValor(RetornoLista));
-
-            if (Request == null)
-                return new HttpResponseMessage { Content = new ObjectContent<ResultadoDaOperacao<List<List<EnderecosCalculados>>>>(resultado, new JsonMediaTypeFormatter()) };
-
-            return CreateResponse(resultado);
+            return Request.CreateResponse<List<List<EnderecosCalculados>>>(HttpStatusCode.Created, RetornoLista);
         }
        
     }

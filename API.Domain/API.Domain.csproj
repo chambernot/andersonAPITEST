@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="Entidades\EnderecosCalculados.cs" />
     <Compile Include="Entidades\Entrada.cs" />
-    <Compile Include="Entidades\ResultadoDaOperacao.cs" />
     <Compile Include="Entidades\RootObject.cs" />
     <Compile Include="Interfaces\IBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
