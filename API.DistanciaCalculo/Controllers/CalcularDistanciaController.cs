@@ -17,7 +17,7 @@ namespace API.DistanciaCalculo.Controllers
     public class CalcularDistanciaController : ApiController
     {
         [Route("api/Distancia/CalculoProximidadePessoasGet")]
-        //[Authorize]
+        [Authorize]
         
         public async Task<HttpResponseMessage> CalculoProximidadePessoas(List<Entrada> ListaLocalizacao)
         {

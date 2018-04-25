@@ -18,11 +18,7 @@ namespace API.Consumir
 
         Guid _identificacao = Guid.NewGuid();
         List<RetornoAPI> ListaRetornoAPI = new List<RetornoAPI>();
-        public AmigosProximos()
-        {
-
-        }
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             
