@@ -7,8 +7,10 @@
     <title></title>
 </head>
 <body>
+    
     <form id="form1" runat="server">
         <div>
+            <asp:Button ID="btnPesquisa" runat="server" Text="Pesquisar" OnClick="btnPesquisa_Click" />
         </div>
     </form>
 </body>
