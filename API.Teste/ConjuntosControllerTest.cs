@@ -7,7 +7,12 @@ using API.Dominio;
 using API.DistanciaCalculo.Controllers;
 using System.Threading.Tasks;
 using System.Configuration;
-
+using API.Domain.Entidades;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
+using System.Linq;
+using System.Web;
 
 namespace API.Teste
 {
@@ -16,41 +21,18 @@ namespace API.Teste
     {
         
         List<Entrada> ListaEntradaLocalizacao = new List<Entrada>();
-        CalcularDistanciaController _calcularDistanciaController;
         Guid _identificacao = Guid.NewGuid();
   
 
         [TestMethod]
-        public async Task TestCalculoDistancia()
+        public void TestCalculoDistancia()
         {
-            _calcularDistanciaController = new CalcularDistanciaController();
-            PessoasLocalizacao();
-            string strConexao = ConfigurationManager.ConnectionStrings["SQLServerConnection"].ConnectionString;
-            await _calcularDistanciaController.CalculoProximidadePessoas(ListaEntradaLocalizacao);
-
+           
             try
             {
-                using (SqlConnection con = new SqlConnection(strConexao))
-                {
-                    string sql = "select Nome, IdidenticacaoExterno, COUNT(0) AS QTD from CalculoHistoricoLog where IdidenticacaoExterno = @IdidenticacaoExterno  group by Nome,IdidenticacaoExterno";
-                    using (SqlCommand cmd = new SqlCommand(sql, con))
-                    {
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Parameters.AddWithValue("@IdidenticacaoExterno", _identificacao);
-                        con.Open();
-                        SqlDataReader dr = await cmd.ExecuteReaderAsync();
-
-                        while (await dr.ReadAsync())
-                        {
-                            string nome = dr["Nome"].ToString();
-                            Entrada entra = ListaEntradaLocalizacao.Find(x => x.Nome == nome);
-                            Assert.IsNotNull(entra);
-                            Assert.AreEqual((int)dr["QTD"], 3);
-                                                               
-                           
-                        }
-                    }
-                }
+                LoginTokenResult token = ConsultaToken();
+                List<List<EnderecosCalculados>> Resultado = PesquisaLocalizacao1(token.AccessToken);
+               
             }
             catch (Exception ex)
             {
@@ -61,6 +43,49 @@ namespace API.Teste
             
         }
 
+        private LoginTokenResult ConsultaToken()
+
+        {
+
+
+
+            using (var client = new HttpClient())
+            {
+
+                HttpResponseMessage response =
+                client.PostAsync("http://localhost:61350/token",
+                    new StringContent(string.Format("grant_type=password&username={0}&password={1}",
+                        HttpUtility.UrlEncode("Fulano"),
+                         HttpUtility.UrlEncode("1234")), Encoding.UTF8,
+                         "application/x-www-form-urlencoded")).Result;
+                string resultJSON = response.Content.ReadAsStringAsync().Result;
+                LoginTokenResult result = JsonConvert.DeserializeObject<LoginTokenResult>(resultJSON);
+
+                return result;
+
+            }
+
+        }
+
+        public List<List<EnderecosCalculados>> PesquisaLocalizacao1(string token)
+        {
+
+            using (var client = new HttpClient())
+            {
+                PessoasLocalizacao();
+                var serializedProduto = JsonConvert.SerializeObject(ListaEntradaLocalizacao);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                HttpResponseMessage response =
+                client.PostAsync("http://localhost:61350/api/Distancia/CalculoProximidadePessoasGet",
+                    new StringContent(serializedProduto, Encoding.UTF8,
+                         "application/json")).Result;
+                string resultJSON = response.Content.ReadAsStringAsync().Result;
+
+                return JsonConvert.DeserializeObject<List<List<EnderecosCalculados>>>(resultJSON).ToList();
+
+
+            }
+        }
 
         private void PessoasLocalizacao()
         {
@@ -89,5 +114,23 @@ namespace API.Teste
             _entrada.Localizacao = "Rua figueiras, santo andre";
             ListaEntradaLocalizacao.Add(_entrada);
         }
+    }
+
+    public class LoginTokenResult
+    {
+        public override string ToString()
+        {
+            return AccessToken;
+        }
+
+        [JsonProperty(PropertyName = "access_token")]
+        public string AccessToken { get; set; }
+
+        [JsonProperty(PropertyName = "error")]
+        public string Error { get; set; }
+
+        [JsonProperty(PropertyName = "error_description")]
+        public string ErrorDescription { get; set; }
+
     }
 }

@@ -63,6 +63,7 @@ namespace API.Consumir
             {
                 PessoasLocalizacao();
                 var serializedProduto = JsonConvert.SerializeObject(ListaEntradaLocalizacao);
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
                 HttpResponseMessage response =
                 client.PostAsync("http://localhost:61350/api/Distancia/CalculoProximidadePessoasGet",
                     new StringContent(serializedProduto, Encoding.UTF8,
