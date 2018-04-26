@@ -21,7 +21,7 @@ namespace API.Consumir
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            this.rptBand.ItemDataBound += new RepeaterItemEventHandler(rptBand_ItemDataBound);
         }
 
         protected void btnCalcular_Click(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace API.Consumir
                 ListaRetornoAPI.Add(retornoapi);
                 
             }
-            this.rptBand.ItemDataBound += new RepeaterItemEventHandler(rptBand_ItemDataBound);
+            
             rptBand.DataSource = ListaRetornoAPI;
             rptBand.DataBind();
 
@@ -159,6 +159,26 @@ namespace API.Consumir
 
         protected void rptBand_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
+
+            if (e.Item.Controls.Contains((Repeater)e.Item.FindControl("rptBandItens")))
+
+            {
+
+                // cria um objeto Repeater e define-o como o objeto AlunoRepeater do item
+
+                Repeater rptBandItens = (Repeater)e.Item.FindControl("rptBandItens");
+
+                // converte o item (linha do repeater) para um professor e define a propriedade Alunos como DataSource do repeater
+
+                rptBandItens.DataSource = ((RetornoAPI)e.Item.DataItem).Itens;
+
+                rptBandItens.DataBind();
+
+            }
+
+
+
 
         }
     }
