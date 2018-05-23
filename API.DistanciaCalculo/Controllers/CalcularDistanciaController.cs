@@ -34,8 +34,8 @@ namespace API.DistanciaCalculo.Controllers
                 strConexao = @"Data Source = (localdb)\MSSQLLocalDB;Integrated Security=true;Database=APICALCULO";
             }
                  CalcularDistancia _calcDistancia = new CalcularDistancia(strConexao);
-             List<List<EnderecosCalculados>> RetornoLista = await _calcDistancia.RetornaCalculoDistancita(ListaLocalizacao);
-            return Request.CreateResponse<List<List<EnderecosCalculados>>>(HttpStatusCode.Created, RetornoLista);
+                 List<List<EnderecosCalculados>> RetornoLista = await _calcDistancia.RetornaCalculoDistancita(ListaLocalizacao);
+                 return Request.CreateResponse<List<List<EnderecosCalculados>>>(HttpStatusCode.Created, RetornoLista);
         }
        
     }
